@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Icon({ name, className = "h-5 w-5" }) {
   const common = {
@@ -349,7 +349,7 @@ function Projects() {
                   ))}
                 </div>
                 <a
-                  href={project.href}
+                  href={`#${project.href}`}
                   className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-[#1F1F1F] transition hover:text-[#8B7CF6]"
                 >
                   项目详情
@@ -511,7 +511,7 @@ function Footer() {
 function BackButton() {
   return (
     <a
-      href="/"
+      href="#/"
       className="inline-flex items-center gap-2 rounded-full border border-[#E6DED2] bg-white/70 px-5 py-2.5 text-sm font-medium text-[#1F1F1F] shadow-sm transition hover:-translate-y-0.5 hover:bg-white"
     >
       ← 返回首页
@@ -564,7 +564,7 @@ function VideoProjectDetailPage() {
 
       <header className="border-b border-[#E6DED2]/80 bg-[#FAF7F2]/90 backdrop-blur-xl">
         <nav className="mx-auto flex h-18 max-w-[1500px] items-center justify-between px-6 md:px-10 lg:px-16 xl:px-20">
-          <a href="/" className="flex items-center gap-3 text-base font-medium tracking-tight text-[#1F1F1F]">
+          <a href="#/" className="flex items-center gap-3 text-base font-medium tracking-tight text-[#1F1F1F]">
             <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E6DED2] bg-white/70 shadow-sm">O</span>
             <span>oolongAI</span>
           </a>
@@ -654,7 +654,7 @@ function VideoProjectDetailPage() {
             <p className="text-2xl font-semibold tracking-tight text-[#1F1F1F]">视频文件位置</p>
             <p className="mt-2 text-[#6B665F]">请将你的 1 分钟 mp4 视频命名为 project-agent-demo.mp4，并放入 public 文件夹。</p>
           </div>
-          <a href="/" className="rounded-full bg-[#1F1F1F] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#3A3733]">
+          <a href="#/" className="rounded-full bg-[#1F1F1F] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#3A3733]">
             返回首页
           </a>
         </div>
@@ -685,7 +685,7 @@ function AnimeProjectDetailPage() {
 
       <header className="border-b border-[#E6DED2]/80 bg-[#FAF7F2]/90 backdrop-blur-xl">
         <nav className="mx-auto flex h-18 max-w-[1500px] items-center justify-between px-6 md:px-10 lg:px-16 xl:px-20">
-          <a href="/" className="flex items-center gap-3 text-base font-medium tracking-tight text-[#1F1F1F]">
+          <a href="#/" className="flex items-center gap-3 text-base font-medium tracking-tight text-[#1F1F1F]">
             <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E6DED2] bg-white/70 shadow-sm">O</span>
             <span>oolongAI</span>
           </a>
@@ -825,7 +825,7 @@ function AnimeProjectDetailPage() {
             <p className="text-2xl font-semibold tracking-tight text-[#1F1F1F]">想了解更多？</p>
             <p className="mt-2 text-[#6B665F]">这个项目后续可以继续扩展为完整 case study 页面、论文式方法图和交互式 demo。</p>
           </div>
-          <a href="/" className="rounded-full bg-[#1F1F1F] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#3A3733]">
+          <a href="#/" className="rounded-full bg-[#1F1F1F] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#3A3733]">
             返回首页
           </a>
         </div>
@@ -836,8 +836,23 @@ function AnimeProjectDetailPage() {
   );
 }
 
+function getCurrentPath() {
+  if (typeof window === "undefined") return "/";
+  return window.location.hash.replace("#", "") || "/";
+}
+
 export default function App() {
-  const path = typeof window !== "undefined" ? window.location.pathname : "/";
+  const [path, setPath] = useState(getCurrentPath());
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setPath(getCurrentPath());
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
 
   if (path === "/projects/anime-character-sheet-generation") {
     return <AnimeProjectDetailPage />;
