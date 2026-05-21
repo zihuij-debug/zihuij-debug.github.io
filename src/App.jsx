@@ -718,17 +718,17 @@ function AnimeProjectDetailPage() {
           </div>
 
           <div className="rounded-[2.5rem] border border-[#E6DED2] bg-white/60 p-5 shadow-[0_24px_80px_rgba(67,55,42,0.12)]">
-            <div className="relative h-[420px] overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#F1ECE4] via-white to-[#EEE9FF] p-3 md:h-[520px]">
-              <img
-                src="/project-anime.png"
-                alt="Anime character sheet generation result"
-                className="h-full w-full rounded-[1.65rem] object-cover object-center shadow-sm"
-              />
-              <div className="absolute inset-3 rounded-[1.65rem] bg-gradient-to-t from-[#1F1F1F]/25 via-transparent to-transparent" />
-              <div className="absolute bottom-8 left-8 right-8 rounded-2xl bg-white/78 p-5 shadow-sm backdrop-blur">
-                <p className="font-semibold text-[#1F1F1F]">Final Pipeline Output</p>
-                <p className="mt-1 text-sm text-[#6B665F]">multi-expression OC sheet generation</p>
-              </div>
+            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#F1ECE4] via-white to-[#EEE9FF] p-3">
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster="/project-anime.png"
+                className="aspect-video w-full rounded-[1.65rem] bg-black object-contain object-center shadow-sm"
+              >
+                <source src="/project-anime-demo.mp4" type="video/mp4" />
+                你的浏览器暂不支持 video 标签。
+              </video>
             </div>
           </div>
         </div>
