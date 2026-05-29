@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Icon({ name, className = "h-5 w-5" }) {
   const common = {
@@ -117,6 +117,9 @@ const projects = [
     tags: ["Generative AI", "Anime", "Identity Consistency", "Creative Tooling", "AIGC"],
     href: "/projects/anime-character-sheet-generation",
     visual: "anime",
+    image: "/project-anime.png",
+    imageAlt: "Anime Character Sheet Generation project cover",
+    badge: "Character Sheet",
   },
   {
     title: "AI Agent & Creative Tool Experiments",
@@ -125,6 +128,45 @@ const projects = [
     tags: ["AI Agent", "Productivity", "Creative AI", "Product Experiments"],
     href: "/projects/ai-agent-creative-tools",
     visual: "agent",
+    image: "/project-agent.png",
+    imageAlt: "AI Agent and Creative Tool Experiments project cover",
+    badge: "AI Experiment",
+  },
+  {
+    title: "AI Image Model Evaluation & Selection",
+    description:
+      "面向真实业务场景评估主流图片生成模型，覆盖生成质量、风格一致性、主体准确性、可控性与商业可用性。通过黄金评测集、自动化指标与 LLM-as-a-Judge 分析，辅助完成模型选型决策。",
+    tags: [
+      "AI Model Evaluation",
+      "Image Generation",
+      "Model Selection",
+      "LLM-as-a-Judge",
+      "Golden Dataset",
+      "Product Analytics",
+    ],
+    href: "/projects/ai-image-model-evaluation-selection",
+    visual: "image",
+    image: "/project-video.png",
+    imageAlt: "AI Video Product Research project cover",
+    badge: "Model Evaluation",
+  },
+  {
+    title: "AI Image Generation Workflow Prototype",
+    description:
+      "基于 Coze 搭建从主题输入、Prompt 生成到图片 API 调用的自动化工作流。用于快速验证 AI 出图链路的完整性、稳定性与产品逻辑，为后续代码化实现提供原型基础。",
+    tags: [
+      "AI Workflow",
+      "Coze",
+      "Image Generation",
+      "Prompt Engineering",
+      "API Integration",
+      "Product Prototyping",
+    ],
+    href: "/projects/ai-image-generation-workflow-prototype",
+    visual: "workflow",
+    image: "/project-scheduling.png",
+    imageAlt: "Long-Term Memory AI Scheduling Agent project cover",
+    badge: "Workflow Prototype",
   },
 ];
 
@@ -174,7 +216,7 @@ function Navbar() {
             <button
               key={item.label}
               onClick={() => scrollToSection(item.href)}
-              className="rounded-full px-5 py-2.5 text-[15px] text-[#6B665F] transition hover:bg-[#F1ECE4] hover:text-[#1F1F1F]"
+              className="nav-link rounded-full px-5 py-2.5 text-[15px] text-[#6B665F] transition hover:bg-[#F1ECE4] hover:text-[#1F1F1F]"
             >
               {item.label}
             </button>
@@ -194,7 +236,7 @@ function Navbar() {
 
 function AnimeAvatar() {
   return (
-    <div className="relative mx-auto aspect-[4/5] w-full max-w-[470px] overflow-hidden rounded-[2.75rem] border border-[#E6DED2] bg-gradient-to-br from-white via-[#F1ECE4] to-[#EEE9FF] p-6 shadow-[0_28px_90px_rgba(67,55,42,0.16)]">
+    <div className="avatar-float relative mx-auto aspect-[4/5] w-full max-w-[470px] overflow-hidden rounded-[2.75rem] border border-[#E6DED2] bg-gradient-to-br from-white via-[#F1ECE4] to-[#EEE9FF] p-6 shadow-[0_28px_90px_rgba(67,55,42,0.16)]">
       <div className="absolute left-8 top-8 h-20 w-20 rounded-full bg-[#A78BFA]/20 blur-2xl" />
       <div className="absolute bottom-12 right-8 h-24 w-24 rounded-full bg-[#D9BFA9]/30 blur-2xl" />
       <div className="absolute inset-x-8 top-8 h-1 rounded-full bg-gradient-to-r from-transparent via-white to-transparent opacity-70" />
@@ -223,33 +265,19 @@ function AnimeAvatar() {
   );
 }
 
-function ProjectVisual({ type }) {
-  if (type === "anime") {
-    return (
-      <div className="relative h-64 overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#F1ECE4] via-white to-[#EEE9FF] p-3">
-        <img
-          src="/project-anime.png"
-          alt="Anime Character Sheet Generation project cover"
-          className="h-full w-full rounded-[1.25rem] object-cover object-center shadow-sm"
-        />
-        <div className="absolute inset-3 rounded-[1.25rem] bg-gradient-to-t from-[#1F1F1F]/28 via-transparent to-transparent" />
-        <div className="absolute right-6 top-6 rounded-full bg-white/86 px-4 py-1.5 text-sm text-[#6B665F] shadow-sm backdrop-blur">
-          Character Sheet
-        </div>
-      </div>
-    );
-  }
+function ProjectVisual({ project }) {
+  const isAnime = project.visual === "anime";
 
   return (
-    <div className="relative h-64 overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#F1ECE4] via-white to-[#E9F0FF] p-3">
+    <div className={`relative h-64 overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#F1ECE4] via-white ${isAnime ? "to-[#EEE9FF]" : "to-[#E9F0FF]"} p-3`}>
       <img
-        src="/project-agent.png"
-        alt="AI Agent and Creative Tool Experiments project cover"
+        src={project.image}
+        alt={project.imageAlt}
         className="h-full w-full rounded-[1.25rem] object-cover object-center shadow-sm"
       />
-      <div className="absolute inset-3 rounded-[1.25rem] bg-gradient-to-t from-[#1F1F1F]/24 via-transparent to-transparent" />
-      <div className="absolute right-6 top-6 rounded-full bg-white/86 px-4 py-1.5 text-sm text-[#6B665F] shadow-sm backdrop-blur">
-        AI Experiment
+      <div className={`absolute inset-3 rounded-[1.25rem] bg-gradient-to-t ${isAnime ? "from-[#1F1F1F]/28" : "from-[#1F1F1F]/24"} via-transparent to-transparent`} />
+      <div className="absolute right-6 top-6 max-w-[calc(100%-3rem)] rounded-full bg-white/86 px-4 py-1.5 text-sm text-[#6B665F] shadow-sm backdrop-blur">
+        {project.badge}
       </div>
     </div>
   );
@@ -268,52 +296,53 @@ function SectionHeader({ eyebrow, title, description }) {
 function Hero() {
   return (
     <section id="home" className="relative min-h-screen overflow-hidden px-6 pb-14 pt-28 md:px-10 md:pb-16 md:pt-30 lg:px-16 xl:px-20">
-      <div className="absolute left-1/2 top-16 h-80 w-80 -translate-x-1/2 rounded-full bg-[#EEE9FF]/60 blur-3xl" />
-      <div className="absolute -left-24 top-52 h-72 w-72 rounded-full bg-[#E9DDD0]/60 blur-3xl" />
+      <div className="ambient-orb ambient-orb-one absolute left-1/2 top-16 h-80 w-80 -translate-x-1/2 rounded-full bg-[#EEE9FF]/60 blur-3xl" />
+      <div className="ambient-orb ambient-orb-two absolute -left-24 top-52 h-72 w-72 rounded-full bg-[#E9DDD0]/60 blur-3xl" />
+      <div className="ambient-orb ambient-orb-three absolute right-[-6rem] top-36 h-64 w-64 rounded-full bg-[#D8CCFF]/35 blur-3xl" />
       <div className="relative mx-auto grid max-w-[1500px] items-center gap-16 md:min-h-[calc(100vh-8rem)] md:grid-cols-[1.25fr_0.75fr] lg:gap-24 xl:grid-cols-[1.3fr_0.7fr]">
-        <div className="animate-[fadeIn_0.8s_ease-out]">
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#E6DED2] bg-white/60 px-5 py-2.5 text-[15px] text-[#6B665F] shadow-sm backdrop-blur">
+        <div>
+          <div className="hero-reveal reveal-delay-1 mb-7 inline-flex items-center gap-2 rounded-full border border-[#E6DED2] bg-white/60 px-5 py-2.5 text-[15px] text-[#6B665F] shadow-sm backdrop-blur">
             <Icon name="sparkles" className="h-4 w-4 text-[#8B7CF6]" />
             AI Product · AIGC · Creative Technology
           </div>
 
-          <h1 className="max-w-[920px] text-5xl font-semibold leading-[1.08] tracking-[-0.045em] text-[#1F1F1F] md:text-7xl lg:text-[6rem] xl:text-[6.4rem]">
+          <h1 className="hero-reveal reveal-delay-2 max-w-[920px] text-5xl font-semibold leading-[1.08] tracking-[-0.045em] text-[#1F1F1F] md:text-7xl lg:text-[6rem] xl:text-[6.4rem]">
             <span className="block">你好，我是 oolongAI</span>
             <span className="mt-3 block text-[0.78em] leading-[1.12] text-[#4B4742]">
-              专注 <span className="bg-gradient-to-r from-[#4B4742] to-[#8B7CF6] bg-clip-text text-transparent">AI 产品</span> 与创意技术
+              专注 <span className="shimmer-text bg-gradient-to-r from-[#4B4742] to-[#8B7CF6] bg-clip-text text-transparent">AI 产品</span> 与创意技术
             </span>
           </h1>
 
-          <p className="mt-8 max-w-[860px] text-xl leading-10 text-[#6B665F] md:text-[1.32rem] md:leading-[2.2rem]">
+          <p className="hero-reveal reveal-delay-3 mt-8 max-w-[860px] text-xl leading-10 text-[#6B665F] md:text-[1.32rem] md:leading-[2.2rem]">
             目前在 Carnegie Mellon University 学习，关注 AI 产品、AIGC、动漫内容生成与面向真实用户的创意技术应用。
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-2">
+          <div className="hero-reveal reveal-delay-4 mt-8 flex flex-wrap gap-2">
             {heroTags.map((tag) => (
-              <span key={tag} className="rounded-full border border-[#E6DED2] bg-white/55 px-4 py-2 text-[15px] text-[#6B665F] shadow-sm">
+              <span key={tag} className="rounded-full border border-[#E6DED2] bg-white/55 px-4 py-2 text-[15px] text-[#6B665F] shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-[#CFC2FF] hover:bg-white/80 hover:shadow-[0_10px_28px_rgba(67,55,42,0.1)]">
                 {tag}
               </span>
             ))}
           </div>
 
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <div className="hero-reveal reveal-delay-5 mt-10 flex flex-col gap-3 sm:flex-row">
             <button
               onClick={() => scrollToSection("#projects")}
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#1F1F1F] px-7 py-3.5 text-base font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#3A3733]"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#1F1F1F] px-7 py-3.5 text-base font-medium text-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:bg-[#3A3733] hover:shadow-[0_14px_34px_rgba(31,31,31,0.18)]"
             >
               查看项目
-              <Icon name="arrowRight" className="h-4 w-4 transition group-hover:translate-x-0.5" />
+              <Icon name="arrowRight" className="h-4 w-4 transition duration-300 group-hover:translate-x-1" />
             </button>
             <button
               onClick={() => scrollToSection("#contact")}
-              className="inline-flex items-center justify-center rounded-full border border-[#E6DED2] bg-white/65 px-7 py-3.5 text-base font-medium text-[#1F1F1F] shadow-sm transition hover:-translate-y-0.5 hover:bg-white"
+              className="inline-flex items-center justify-center rounded-full border border-[#E6DED2] bg-white/65 px-7 py-3.5 text-base font-medium text-[#1F1F1F] shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-[#CFC2FF] hover:bg-white hover:shadow-[0_12px_30px_rgba(67,55,42,0.1)]"
             >
               联系我
             </button>
           </div>
         </div>
 
-        <div className="animate-[fadeIn_1s_ease-out]">
+        <div className="hero-reveal reveal-delay-6">
           <AnimeAvatar />
         </div>
       </div>
@@ -337,7 +366,7 @@ function Projects() {
               key={project.title}
               className="group rounded-[2.25rem] border border-[#E6DED2] bg-white/62 p-5 shadow-[0_18px_55px_rgba(67,55,42,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#CFC2FF] hover:shadow-[0_24px_80px_rgba(67,55,42,0.12)]"
             >
-              <ProjectVisual type={project.visual} />
+              <ProjectVisual project={project} />
               <div className="p-4 md:p-5">
                 <h3 className="text-3xl font-semibold tracking-tight text-[#1F1F1F]">{project.title}</h3>
                 <p className="mt-4 text-lg leading-9 text-[#6B665F]">{project.description}</p>
@@ -866,9 +895,99 @@ export default function App() {
     <main className="min-h-screen scroll-smooth bg-[#FAF7F2] font-sans text-[#1F1F1F]">
       <style>{`
         html { scroll-behavior: smooth; }
+
+        /* 首屏内容分层淡入，提升加载时的第一印象。 */
+        .hero-reveal {
+          animation: fadeUp 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .reveal-delay-1 { animation-delay: 80ms; }
+        .reveal-delay-2 { animation-delay: 180ms; }
+        .reveal-delay-3 { animation-delay: 300ms; }
+        .reveal-delay-4 { animation-delay: 420ms; }
+        .reveal-delay-5 { animation-delay: 540ms; }
+        .reveal-delay-6 { animation-delay: 660ms; }
+
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(12px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+          to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        /* “AI 产品”关键词的克制流光效果。 */
+        .shimmer-text {
+          background-image: linear-gradient(100deg, #4B4742 0%, #8B7CF6 36%, #CFC2FF 50%, #8B7CF6 64%, #4B4742 100%);
+          background-size: 240% 100%;
+          animation: shimmerText 5.8s ease-in-out infinite;
+        }
+        @keyframes shimmerText {
+          0%, 18% { background-position: 0% 50%; }
+          58%, 100% { background-position: 100% 50%; }
+        }
+
+        /* 背景光斑缓慢漂移，保持柔和且不干扰阅读。 */
+        .ambient-orb {
+          pointer-events: none;
+          animation: orbDrift 13s ease-in-out infinite alternate;
+          will-change: translate, opacity;
+        }
+        .ambient-orb-two { animation-duration: 16s; animation-delay: -3s; }
+        .ambient-orb-three { animation-duration: 18s; animation-delay: -6s; }
+        @keyframes orbDrift {
+          from { translate: 0 0; opacity: 0.66; }
+          to { translate: 20px -16px; opacity: 0.9; }
+        }
+
+        /* 头像卡片轻微悬浮和 hover 微交互。 */
+        .avatar-float {
+          animation: avatarFloat 6.5s ease-in-out infinite;
+          transition: transform 320ms ease, box-shadow 320ms ease, border-color 320ms ease;
+          will-change: transform;
+        }
+        .avatar-float:hover {
+          animation-play-state: paused;
+          transform: translateY(-8px) scale(1.015);
+          border-color: #CFC2FF;
+          box-shadow: 0 34px 105px rgba(67,55,42,0.2);
+        }
+        @keyframes avatarFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+
+        /* 导航保持简洁，仅在 hover 时出现细微下划线。 */
+        .nav-link {
+          position: relative;
+        }
+        .nav-link::after {
+          content: "";
+          position: absolute;
+          left: 1.25rem;
+          right: 1.25rem;
+          bottom: 0.42rem;
+          height: 1px;
+          background: #8B7CF6;
+          opacity: 0;
+          transform: scaleX(0.45);
+          transition: opacity 220ms ease, transform 220ms ease;
+        }
+        .nav-link:hover::after {
+          opacity: 0.55;
+          transform: scaleX(1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          html { scroll-behavior: auto; }
+          *, *::before, *::after {
+            animation-duration: 1ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 1ms !important;
+          }
+          .ambient-orb, .avatar-float, .shimmer-text, .hero-reveal {
+            animation: none !important;
+          }
         }
       `}</style>
       <Navbar />
