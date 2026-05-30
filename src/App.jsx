@@ -151,21 +151,21 @@ const projects = [
     badge: "Model Evaluation",
   },
   {
-    title: "AI Image Generation Workflow Prototype",
+    title: "Video Generation Workflow Prototype",
     description:
-      "基于 Coze 搭建从主题输入、Prompt 生成到图片 API 调用的自动化工作流。用于快速验证 AI 出图链路的完整性、稳定性与产品逻辑，为后续代码化实现提供原型基础。",
+      "搭建 AI 动漫视频生成工作流原型，串联提示词生成、角色/场景/道具资产、关键帧融合与图生视频，验证创意想法到视频素材的生产链路。",
     tags: [
       "AI Workflow",
-      "Coze",
-      "Image Generation",
+      "Anime Video",
+      "Keyframe Generation",
       "Prompt Engineering",
-      "API Integration",
+      "Asset Management",
       "Product Prototyping",
     ],
-    href: "/projects/ai-image-generation-workflow-prototype",
+    href: "/projects/ai-anime-video-generation-workflow-prototype",
     visual: "workflow",
-    image: "/project-scheduling.png",
-    imageAlt: "Long-Term Memory AI Scheduling Agent project cover",
+    image: "/workflow.png",
+    imageAlt: "Video Generation Workflow Prototype project cover",
     badge: "Workflow Prototype",
   },
 ];
@@ -694,6 +694,179 @@ function VideoProjectDetailPage() {
   );
 }
 
+function WorkflowProjectDetailPage() {
+  const workflowSteps = [
+    {
+      number: "1",
+      title: "创意输入与提示词生成",
+      description: "将故事想法、角色设定或分镜需求转化为结构化提示词，统一角色、镜头、场景、情绪和风格描述。",
+    },
+    {
+      number: "2",
+      title: "角色 / 场景 / 道具生成",
+      description: "围绕动漫视频制作所需素材，拆分生成角色参考、场景背景和关键道具，为后续画面合成建立资产基础。",
+    },
+    {
+      number: "3",
+      title: "资产库管理",
+      description: "沉淀可复用的角色、场景、道具和提示词版本，帮助同一项目在多次生成中保持视觉设定一致。",
+    },
+    {
+      number: "4",
+      title: "关键帧融合",
+      description: "把角色资产、场景背景与镜头意图组合成视频关键帧，用于验证画面节奏、构图和视觉连续性。",
+    },
+    {
+      number: "5",
+      title: "图生视频",
+      description: "以关键帧作为输入进行视频生成，检查镜头运动、人物稳定性、风格延续和整体内容生产链路。",
+    },
+  ];
+
+  return (
+    <main className="min-h-screen bg-[#FAF7F2] text-[#1F1F1F]">
+      <style>{`
+        html { scroll-behavior: smooth; }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+
+      <header className="border-b border-[#E6DED2]/80 bg-[#FAF7F2]/90 backdrop-blur-xl">
+        <nav className="mx-auto flex h-18 max-w-[1500px] items-center justify-between px-6 md:px-10 lg:px-16 xl:px-20">
+          <a href="#/" className="flex items-center gap-3 text-base font-medium tracking-tight text-[#1F1F1F]">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E6DED2] bg-white/70 shadow-sm">O</span>
+            <span>oolongAI</span>
+          </a>
+          <BackButton />
+        </nav>
+      </header>
+
+      <section className="relative overflow-hidden px-6 pb-16 pt-16 md:px-10 lg:px-16 xl:px-20">
+        <div className="absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 rounded-full bg-[#EEE9FF]/70 blur-3xl" />
+        <div className="relative mx-auto grid max-w-[1500px] items-center gap-12 md:grid-cols-[0.96fr_1.04fr] lg:gap-16">
+          <div className="animate-[fadeIn_0.8s_ease-out]">
+            <BackButton />
+            <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#E6DED2] bg-white/70 px-5 py-2.5 text-[15px] text-[#6B665F] shadow-sm">
+              <Icon name="sparkles" className="h-4 w-4 text-[#8B7CF6]" />
+              AI Workflow · Anime Video · Creative Pipeline
+            </div>
+            <h1 className="mt-7 max-w-5xl text-5xl font-semibold leading-[1.05] tracking-[-0.05em] text-[#1F1F1F] md:text-7xl lg:text-[5.2rem]">
+              Video Generation Workflow Prototype
+            </h1>
+            <p className="mt-8 max-w-3xl text-xl leading-10 text-[#6B665F] md:text-[1.32rem] md:leading-[2.2rem]">
+              搭建 AI 动漫视频生成工作流原型，串联提示词生成、角色/场景/道具资产、关键帧融合与图生视频，验证创意想法到视频素材的生产链路。
+            </p>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {["AI Workflow", "Anime Video", "Prompt Engineering", "Asset Library", "Image-to-Video"].map((tag) => (
+                <span key={tag} className="rounded-full border border-[#E6DED2] bg-white/60 px-4 py-2 text-sm text-[#6B665F] shadow-sm">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-[2.5rem] border border-[#E6DED2] bg-white/60 p-5 shadow-[0_24px_80px_rgba(67,55,42,0.12)]">
+            <div className="overflow-hidden rounded-[2rem] bg-[#1F1F1F] p-3">
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster="/workflow.png"
+                className="aspect-video w-full rounded-[1.5rem] bg-black object-cover shadow-sm"
+              >
+                <source src="/project-anime-video-workflow-demo.mp4" type="video/mp4" />
+                你的浏览器暂不支持 video 标签。
+              </video>
+            </div>
+            <div className="mt-5 rounded-2xl bg-white/78 p-5 shadow-sm backdrop-blur">
+              <p className="font-semibold text-[#1F1F1F]">Workflow Demo</p>
+              <p className="mt-1 text-sm leading-6 text-[#6B665F]">展示从创意输入、资产生成到动漫视频关键帧生产的工作流搭建过程。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <DetailSection eyebrow="01 / Overview" title="项目概览">
+        <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
+          <div className="rounded-[2rem] border border-[#E6DED2] bg-white/64 p-7 shadow-sm">
+            <p>
+              动漫视频生成并不是单次“输入一句话、得到一段视频”的问题。真实创作流程需要先确认故事设定、角色视觉、场景氛围和道具细节，再把这些元素组织成稳定的关键帧，最后进入图生视频环节。
+            </p>
+            <p className="mt-5">
+              这个原型的重点是把分散的生成能力串成可复用流程：让创意输入可以被拆解、资产可以被沉淀、关键帧可以被组合，最终判断 AI 驱动的动漫内容生产链路是否具备产品化潜力。
+            </p>
+          </div>
+          <div className="grid gap-4">
+            <div className="rounded-[2rem] border border-[#E6DED2] bg-[#F1ECE4]/70 p-6">
+              <p className="text-sm text-[#6B665F]">Core Task</p>
+              <p className="mt-2 text-xl font-semibold text-[#1F1F1F]">从创意想法到视频关键帧的工作流验证</p>
+            </div>
+            <div className="rounded-[2rem] border border-[#E6DED2] bg-[#EEE9FF]/55 p-6">
+              <p className="text-sm text-[#6B665F]">Product Question</p>
+              <p className="mt-2 text-xl font-semibold text-[#1F1F1F]">AI 动漫内容生产能否形成顺畅可控的流程</p>
+            </div>
+          </div>
+        </div>
+      </DetailSection>
+
+      <DetailSection eyebrow="02 / Workflow" title="工作流设计">
+        <div className="grid gap-5 md:grid-cols-2">
+          {workflowSteps.map((step) => (
+            <MethodStep key={step.title} {...step} />
+          ))}
+        </div>
+      </DetailSection>
+
+      <DetailSection eyebrow="03 / Prototype Focus" title="原型验证重点">
+        <div className="grid gap-5 md:grid-cols-3">
+          <MethodStep
+            number="A"
+            title="一致性"
+            description="观察角色、服装、场景风格和色彩在多个资产与关键帧之间是否能保持稳定。"
+          />
+          <MethodStep
+            number="B"
+            title="可控性"
+            description="验证提示词结构、资产复用和关键帧组合是否能让用户按意图控制画面。"
+          />
+          <MethodStep
+            number="C"
+            title="流程效率"
+            description="评估从创意输入到可视化结果的操作路径是否足够清晰，是否适合继续产品化。"
+          />
+        </div>
+      </DetailSection>
+
+      <DetailSection eyebrow="04 / Reflection" title="项目反思与下一步">
+        <div className="rounded-[2rem] border border-[#E6DED2] bg-white/64 p-7 shadow-sm">
+          <p>
+            这个原型更关注工作流是否成立，而不是单个模型的最终效果。当前最关键的挑战包括角色一致性、关键帧之间的运动连续性、提示词版本管理，以及图生视频阶段对细节的稳定保留。
+          </p>
+          <p className="mt-5">
+            后续可以继续加入真实资产库界面、关键帧对比视图、自动化质量检查和用户编辑入口，把原型扩展成更完整的动漫视频创作工具。
+          </p>
+        </div>
+      </DetailSection>
+
+      <section className="mx-auto max-w-[1180px] px-6 pb-20 pt-6 md:px-10 lg:px-0">
+        <div className="flex flex-col items-start justify-between gap-5 rounded-[2rem] border border-[#E6DED2] bg-gradient-to-br from-white/80 via-[#FAF7F2] to-[#EEE9FF]/70 p-8 shadow-sm md:flex-row md:items-center">
+          <div>
+            <p className="text-2xl font-semibold tracking-tight text-[#1F1F1F]">回到项目列表</p>
+            <p className="mt-2 text-[#6B665F]">继续查看其他 AI 产品、生成式内容与创意技术探索。</p>
+          </div>
+          <a href="#/" className="rounded-full bg-[#1F1F1F] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#3A3733]">
+            返回首页
+          </a>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  );
+}
+
 function AnimeProjectDetailPage() {
   const metrics = [
     { label: "Expression Accuracy", value: "0.777", note: "最终 pipeline 在表情控制上的整体准确率。" },
@@ -889,6 +1062,10 @@ export default function App() {
 
   if (path === "/projects/ai-agent-creative-tools") {
     return <VideoProjectDetailPage />;
+  }
+
+  if (path === "/projects/ai-anime-video-generation-workflow-prototype") {
+    return <WorkflowProjectDetailPage />;
   }
 
   return (
