@@ -146,9 +146,10 @@ const projects = [
     ],
     href: "/projects/ai-image-model-evaluation-selection",
     visual: "image",
-    image: "/project-video.png",
-    imageAlt: "AI Video Product Research project cover",
+    image: "/project-image-eval.png",
+    imageAlt: "Text-to-Image Model Evaluation MVP project cover",
     badge: "Model Evaluation",
+    compactDescription: true,
   },
   {
     title: "Video Generation Workflow Prototype",
@@ -369,7 +370,9 @@ function Projects() {
               <ProjectVisual project={project} />
               <div className="p-4 md:p-5">
                 <h3 className="text-3xl font-semibold tracking-tight text-[#1F1F1F]">{project.title}</h3>
-                <p className="mt-4 text-lg leading-9 text-[#6B665F]">{project.description}</p>
+                <p className={`mt-4 text-lg leading-9 text-[#6B665F] ${project.compactDescription ? "line-clamp-2" : ""}`}>
+                  {project.description}
+                </p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span key={tag} className="rounded-full bg-[#F1ECE4] px-3 py-1 text-xs text-[#6B665F]">
@@ -682,6 +685,205 @@ function VideoProjectDetailPage() {
           <div>
             <p className="text-2xl font-semibold tracking-tight text-[#1F1F1F]">视频文件位置</p>
             <p className="mt-2 text-[#6B665F]">请将你的 1 分钟 mp4 视频命名为 project-agent-demo.mp4，并放入 public 文件夹。</p>
+          </div>
+          <a href="#/" className="rounded-full bg-[#1F1F1F] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#3A3733]">
+            返回首页
+          </a>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  );
+}
+
+function ImageEvalProjectDetailPage() {
+  const pipelineSteps = [
+    {
+      number: "1",
+      title: "Prompt 数据管理",
+      description: "维护 30 条多场景 prompt，并按产品、生活方式、食品、建筑、自然、抽象等类别组织评测样本。",
+    },
+    {
+      number: "2",
+      title: "统一模型调用",
+      description: "封装 provider 接口，对接 OpenAI gpt-image-1、Stability AI SD3 与 mock fallback，降低模型替换成本。",
+    },
+    {
+      number: "3",
+      title: "批量图片生成",
+      description: "按模型和 prompt 自动生成图像，保留样本、模型、类别与输出路径，形成可复查的评测记录。",
+    },
+    {
+      number: "4",
+      title: "CLIPScore 自动评分",
+      description: "基于文本与图片 embedding 计算语义相似度，量化模型在图文对齐任务中的表现。",
+    },
+    {
+      number: "5",
+      title: "结果聚合分析",
+      description: "输出模型级、类别级、样本级结果，识别优势类别、薄弱样本和模型之间的稳定差异。",
+    },
+    {
+      number: "6",
+      title: "Markdown 报告生成",
+      description: "自动生成包含平均分排名、分类对比、Top/Bottom 样本和选型结论的可读报告。",
+    },
+  ];
+
+  const metrics = [
+    { label: "Evaluation Set", value: "30", note: "覆盖 6 类真实图像生成场景的轻量 prompt 集。" },
+    { label: "Compared Models", value: "2+", note: "OpenAI gpt-image-1、Stability AI SD3，并支持 mock fallback。" },
+    { label: "Scenario Types", value: "6", note: "产品、生活方式、食品、建筑、自然、抽象。" },
+    { label: "Output Layers", value: "3", note: "模型级、类别级、样本级评测结果。" },
+  ];
+
+  return (
+    <main className="min-h-screen bg-[#FAF7F2] text-[#1F1F1F]">
+      <style>{`
+        html { scroll-behavior: smooth; }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+
+      <header className="border-b border-[#E6DED2]/80 bg-[#FAF7F2]/90 backdrop-blur-xl">
+        <nav className="mx-auto flex h-18 max-w-[1500px] items-center justify-between px-6 md:px-10 lg:px-16 xl:px-20">
+          <a href="#/" className="flex items-center gap-3 text-base font-medium tracking-tight text-[#1F1F1F]">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E6DED2] bg-white/70 shadow-sm">O</span>
+            <span>oolongAI</span>
+          </a>
+          <BackButton />
+        </nav>
+      </header>
+
+      <section className="relative overflow-hidden px-6 pb-16 pt-16 md:px-10 lg:px-16 xl:px-20">
+        <div className="absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 rounded-full bg-[#EEE9FF]/70 blur-3xl" />
+        <div className="relative mx-auto grid max-w-[1500px] items-center gap-12 md:grid-cols-[0.92fr_1.08fr] lg:gap-16">
+          <div className="animate-[fadeIn_0.8s_ease-out]">
+            <BackButton />
+            <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#E6DED2] bg-white/70 px-5 py-2.5 text-[15px] text-[#6B665F] shadow-sm">
+              <Icon name="sparkles" className="h-4 w-4 text-[#8B7CF6]" />
+              Text-to-Image · Model Evaluation · CLIPScore
+            </div>
+            <h1 className="mt-7 max-w-5xl text-4xl font-semibold leading-[1.08] tracking-[-0.04em] text-[#1F1F1F] md:text-6xl lg:text-[4.9rem]">
+              Text-to-Image Model Evaluation MVP
+              <span className="mt-3 block text-[0.52em] leading-tight tracking-[-0.02em] text-[#4B4742]">
+                文生图模型自动评测系统
+              </span>
+            </h1>
+            <p className="mt-8 max-w-3xl text-xl leading-10 text-[#6B665F] md:text-[1.28rem] md:leading-[2.2rem]">
+              一个本地化文生图模型评测 MVP，用于对比 OpenAI gpt-image-1 与 Stability AI SD3 在多类别 prompt 下的图文对齐能力，并自动输出可用于模型选型的结构化报告。
+            </p>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {["gpt-image-1", "Stability AI SD3", "CLIPScore", "Provider Interface", "Markdown Report"].map((tag) => (
+                <span key={tag} className="rounded-full border border-[#E6DED2] bg-white/60 px-4 py-2 text-sm text-[#6B665F] shadow-sm">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-[2.5rem] border border-[#E6DED2] bg-white/60 p-5 shadow-[0_24px_80px_rgba(67,55,42,0.12)]">
+            <div className="overflow-hidden rounded-[2rem] bg-[#1F1F1F] p-3">
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster="/project-image-eval.png"
+                className="aspect-video w-full rounded-[1.5rem] bg-black object-cover object-center shadow-sm"
+              >
+                <source src="/project-image-eval.mp4" type="video/mp4" />
+                你的浏览器暂不支持 video 标签。
+              </video>
+            </div>
+            <div className="mt-5 rounded-2xl bg-white/78 p-5 shadow-sm backdrop-blur">
+              <p className="font-semibold text-[#1F1F1F]">Evaluation workflow demo</p>
+              <p className="mt-1 text-sm leading-6 text-[#6B665F]">展示从多模型图片生成、自动评分到 Markdown 决策报告输出的端到端流程。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <DetailSection eyebrow="01 / Overview" title="项目概览">
+        <div className="grid gap-6 md:grid-cols-[1.12fr_0.88fr]">
+          <div className="rounded-[2rem] border border-[#E6DED2] bg-white/64 p-7 shadow-sm">
+            <p>
+              这个项目围绕一个实际产品问题展开：当团队需要选择文生图模型时，不能只依赖单张样例或主观感受，而需要一套可复现、可扩展、能沉淀评测结果的流程。
+            </p>
+            <p className="mt-5">
+              我设计并实现了一个本地化评测 MVP，把 prompt 管理、模型 API 调用、图片生成、CLIPScore 自动评分、结果聚合和 Markdown 报告生成串成闭环，用于辅助 AI 图像模型选型与质量分析。
+            </p>
+          </div>
+          <div className="grid gap-4">
+            <div className="rounded-[2rem] border border-[#E6DED2] bg-[#F1ECE4]/70 p-6">
+              <p className="text-sm text-[#6B665F]">Core Question</p>
+              <p className="mt-2 text-xl font-semibold text-[#1F1F1F]">哪个图像模型更适合真实业务 prompt</p>
+            </div>
+            <div className="rounded-[2rem] border border-[#E6DED2] bg-[#EEE9FF]/55 p-6">
+              <p className="text-sm text-[#6B665F]">Evaluation Target</p>
+              <p className="mt-2 text-xl font-semibold text-[#1F1F1F]">图文对齐能力、类别稳定性与商业可用性</p>
+            </div>
+          </div>
+        </div>
+      </DetailSection>
+
+      <DetailSection eyebrow="02 / Evaluation Scope" title="评测范围">
+        <div className="grid gap-4 md:grid-cols-4">
+          {metrics.map((metric) => (
+            <MetricCard key={metric.label} {...metric} />
+          ))}
+        </div>
+        <p className="mt-7">
+          评测集采用轻量但覆盖面明确的设计：30 条 prompt 覆盖产品、生活方式、食品、建筑、自然、抽象等 6 类场景，用来观察不同模型在主体准确性、场景理解、风格表达和文本-图片语义对齐上的差异。
+        </p>
+      </DetailSection>
+
+      <DetailSection eyebrow="03 / Pipeline" title="自动化评测流水线">
+        <div className="grid gap-5 md:grid-cols-2">
+          {pipelineSteps.map((step) => (
+            <MethodStep key={step.title} {...step} />
+          ))}
+        </div>
+      </DetailSection>
+
+      <DetailSection eyebrow="04 / System Design" title="系统设计重点">
+        <div className="grid gap-5 md:grid-cols-3">
+          <MethodStep
+            number="A"
+            title="可扩展 Provider"
+            description="用统一接口屏蔽不同模型 API 的差异，让 OpenAI、Stability 或后续新增模型能进入同一套评测流程。"
+          />
+          <MethodStep
+            number="B"
+            title="自动化质量信号"
+            description="通过 CLIP 文本-图片 embedding 相似度生成基础质量信号，减少纯人工浏览样例带来的主观偏差。"
+          />
+          <MethodStep
+            number="C"
+            title="可读性决策报告"
+            description="把原始分数转化为模型排名、类别表现、Top/Bottom 样本和最终对比结论，方便产品侧直接使用。"
+          />
+        </div>
+      </DetailSection>
+
+      <DetailSection eyebrow="05 / Output" title="结果输出与选型价值">
+        <div className="rounded-[2rem] border border-[#E6DED2] bg-white/64 p-7 shadow-sm">
+          <p>
+            系统会生成结构化结果文件与 Markdown 报告，既保留可追溯的样本级数据，也能快速呈现模型级平均分排名和类别级表现差异。对于选型场景，这能帮助团队判断某个模型是否只是在少数样例上表现好，还是在多个业务类别中都更稳定。
+          </p>
+          <p className="mt-5">
+            这个 MVP 实现了从“多模型生成”到“自动化评估”再到“决策报告输出”的端到端闭环，可作为 AI 图像模型评测平台的基础原型，后续可以扩展 LLM-as-a-Judge、人评标注、成本/速度统计和更复杂的黄金评测集。
+          </p>
+        </div>
+      </DetailSection>
+
+      <section className="mx-auto max-w-[1180px] px-6 pb-20 pt-6 md:px-10 lg:px-0">
+        <div className="flex flex-col items-start justify-between gap-5 rounded-[2rem] border border-[#E6DED2] bg-gradient-to-br from-white/80 via-[#FAF7F2] to-[#EEE9FF]/70 p-8 shadow-sm md:flex-row md:items-center">
+          <div>
+            <p className="text-2xl font-semibold tracking-tight text-[#1F1F1F]">回到项目列表</p>
+            <p className="mt-2 text-[#6B665F]">继续查看其他 AI 产品、生成式内容与创意技术探索。</p>
           </div>
           <a href="#/" className="rounded-full bg-[#1F1F1F] px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#3A3733]">
             返回首页
@@ -1062,6 +1264,10 @@ export default function App() {
 
   if (path === "/projects/ai-agent-creative-tools") {
     return <VideoProjectDetailPage />;
+  }
+
+  if (path === "/projects/ai-image-model-evaluation-selection") {
+    return <ImageEvalProjectDetailPage />;
   }
 
   if (path === "/projects/ai-anime-video-generation-workflow-prototype") {
